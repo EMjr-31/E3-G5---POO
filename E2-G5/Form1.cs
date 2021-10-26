@@ -42,14 +42,25 @@ namespace E2_G5
             BorrarMensaje();
             if (validarCampos())
             {
-                MessageBox.Show("Los datos se ingresaron correctamente");
+               
                 DateTime fechaNacimiento = dtpFecha.Value;
+                int dias = System.DateTime.Now.Day - fechaNacimiento.Day;
                 int anios = System.DateTime.Now.Year - fechaNacimiento.Year;
-                if (System.DateTime.Now.Subtract(fechaNacimiento.AddYears(anios)).TotalDays < 0)
+                if (!(dias < 0))
                 {
-                    txtEdad.Text = Convert.ToString(anios - 1);
+                    if (System.DateTime.Now.Subtract(fechaNacimiento.AddYears(anios)).TotalDays < 0)
+                    {
+                        txtEdad.Text = Convert.ToString(anios - 1);
+                    }
+                    else { txtEdad.Text = Convert.ToString(anios); }
+                    MessageBox.Show("Los datos se ingresaron correctamente");
                 }
-                else { txtEdad.Text = Convert.ToString(anios); }
+                else
+                {
+                    MessageBox.Show("La fecha no debe ser superior a la actual");
+                }
+
+
             }
         }
     }
